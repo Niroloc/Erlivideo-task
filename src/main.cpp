@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
         std::string json_data((std::istreambuf_iterator<char>(loaded_json)), std::istreambuf_iterator<char>());
         loaded_json.close();
         // load params
-        std::ifstream loaded_params(libmodelfold/"deploy_param.params", std::ios::binary);
+        std::ifstream loaded_params(libmodelfold/"mod.params", std::ios::binary);
         std::string params_data((std::istreambuf_iterator<char>(loaded_params)), std::istreambuf_iterator<char>());
         loaded_params.close();
         TVMByteArray params_arr;
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 
         auto f32 = tvm::runtime::DataType::Float(32);
         tvm::runtime::NDArray x = tvm::runtime::NDArray::Empty({3, 416, 416}, f32, dev);
-        tvm::runtime::NDArray y = tvm::runtime::NDArray::Empty({1, 80}, f32, dev);
+        tvm::runtime::NDArray y = tvm::runtime::NDArray::Empty({1, 2535, 1, 4}, f32, dev);
 
         cv::Mat img = cv::imread(inf_object);
         std::cout << "Picture loaded" << std::endl;
@@ -54,9 +54,12 @@ int main(int argc, char* argv[])
         }
 
         // run model
+        std::cout << "Run model" << std::endl;
+        std::cout << "Pass input to model" << std::endl;
         set_input("x", x);
         run();
-        get_output("y", y);
+        std::cout << "Get output from model" << std::endl;
+        get_output(0, y);
     }
     else {
         std::cout << "Start program with command erlivideo-task /path/to/mod.so/file /path/to/pic/or/video" << std::endl;
