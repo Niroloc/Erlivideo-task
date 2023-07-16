@@ -4,10 +4,11 @@
 
 int main(int argc, char* argv[])
 {
-    std::string libmodel = argv[0];
-//    std::cout << "Start" << std::endl;
-//    auto model = tvm::runtime::Module::LoadFromFile("/home/fiksor/task/model/mod.so");
-//    std::cout << "Loaded" << std::endl;
-//    auto image = cv::imread();
+    if (argc == 1) {
+        std::string libmodel = argv[0];
+        std::cout << "Start" << std::endl;
+        auto model = tvm::runtime::Module::LoadFromFile(libmodel);
+        std::cout << "Loaded" << std::endl;
+    }
     return 0;
 }
