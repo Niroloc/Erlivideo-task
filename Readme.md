@@ -9,5 +9,5 @@ mkdir build
 cd build
 cmake ..
 make -j 6
-./erlivideo-task
+./erlivideo-task /path/to/model/folder/ /path/to/picture/or/video
 ```
